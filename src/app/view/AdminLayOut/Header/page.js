@@ -1,16 +1,39 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './style.css'
 import $ from "jquery";
 import 'bootstrap/dist/css/bootstrap.min.css';
 const Header = () => {
-
+   
     $(document).ready(function () {
         $('#sidebarCollapse').on('click', function () {
           $('#sidebar').toggleClass('active');
         });
       });
 
+   useEffect(() => {
+        // Enable Bootstrap's JavaScript features
+        // Load jQuery
+        const jQueryScript = document.createElement('script');
+        jQueryScript.src = 'https://code.jquery.com/jquery-3.3.1.slim.min.js';
+        jQueryScript.integrity = 'sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo';
+        jQueryScript.crossOrigin = 'anonymous';
+        jQueryScript.async = true;
+        document.body.appendChild(jQueryScript);
 
+        // Load Bootstrap's JavaScript
+        const bootstrapScript = document.createElement('script');
+        bootstrapScript.src = 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js';
+        bootstrapScript.integrity = 'sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm';
+        bootstrapScript.crossOrigin = 'anonymous';
+        bootstrapScript.async = true;
+        document.body.appendChild(bootstrapScript);
+
+        return () => {
+            // Clean up the scripts when the component unmounts
+            // document.body.removeChild(jQueryScript);
+            document.body.removeChild(bootstrapScript);
+        };
+    }, []);
     return (
         <div>
             <div class="wrapper">
